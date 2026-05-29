@@ -1,23 +1,34 @@
-* Expense Tracker Flask
+* Expense Tracker
 
-A simple Expense Tracker web application built using Flask and SQLite.
+A Flask-based Expense Tracker web application.
 
 ## Features
 
-- User Registration
-- Login
-- Add Expenses
-- View Expenses
-- Edit Expenses
-- Delete Expenses
-- User Profile
+- User Registration & Login
+- Password Hashing
+- Session Management
+- Add Expense
+- Edit Expense
+- Delete Expense
+- Search Expenses
+- Category Filter
+- Date Filter
+- Pagination
+- Profile Management
 - Profile Photo Upload
+- CSV Export
+- Dashboard Statistics
 
-## Technologies
+## Tech Stack
 
 - Python
 - Flask
 - SQLite
-- HTML
-- CSS
 - Bootstrap
+- HTML/CSS
+- Git & GitHub
+- Render
+
+## Live Demo
+
+https://expense-tracker-flask-r2cu.onrender.com
