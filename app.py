@@ -200,6 +200,7 @@ def edit_profile():
             old_photo = cursor.fetchone()[0]
             if filename:
                 if old_photo:
+                    os.makedirs("static/upload",exist_ok=True)
                     old_path = "static/upload/" + old_photo
                     if os.path.exists(old_path):
                         os.remove(old_path)
