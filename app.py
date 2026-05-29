@@ -199,8 +199,8 @@ def edit_profile():
             cursor.execute("SELECT profile_photo FROM users WHERE id=?",(user_id,))
             old_photo = cursor.fetchone()[0]
             if filename:
+                os.makedirs("static/upload",exist_ok=True)
                 if old_photo:
-                    os.makedirs("static/upload",exist_ok=True)
                     old_path = "static/upload/" + old_photo
                     if os.path.exists(old_path):
                         os.remove(old_path)
