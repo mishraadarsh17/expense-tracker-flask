@@ -38,6 +38,7 @@ def home():
                 cursor.execute("INSERT INTO exprac (title,amount,category,user_id,created_at) VALUES(?,?,?,?,?)",(title,amount,category,user_id,now))
                 conn.commit()
                 conn.close()
+                flash("Expense Added Successfully","success")
             else:
                 flash("Invalid Input","danger")
         except ValueError:
