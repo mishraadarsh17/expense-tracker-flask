@@ -12,7 +12,7 @@ app=Flask("__name__")
 app.secret_key="secret"
 categories=["food","shopping","personal","other"]
 def get_db_connection():
-    conn = sqlite3.connect("exprac.db")
+    conn = sqlite3.connect("exprac.db",timeout=30)
     return conn
 
 @app.route("/",methods=["GET","POST"])
@@ -228,7 +228,7 @@ def profile():
     user_detl=None
     if "user_id" in session:
         user_id=session["user_id"]
-        conn=sqlite3.connect("exprac.db") 
+        conn=get_db_connection() 
         cursor=conn.cursor()
         cursor.execute("SELECT username FROM users WHERE id=? ",(user_id,))
         username=cursor.fetchone()
@@ -246,7 +246,7 @@ def remove_photo():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT profile_photo FROM users WHERE id=?",(user_id,))
-    photo = cursor.fetchone()[0]
+    photo = cursor.fetchone()[0] 
     if photo:
         path = "static/upload/" + photo
         if os.path.exists(path):
