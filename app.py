@@ -291,4 +291,5 @@ def export_csv():
     for expense in expenses:
         writer.writerow(expense)
     return response
-app.run(debug=True) 
+if __name__=="__main__":
+    app.run(debug=True) 
