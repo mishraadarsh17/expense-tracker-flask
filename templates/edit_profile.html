@@ -24,25 +24,25 @@
     <div class="row mb-3">
         <label class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="name" value="{{user_detl[0]}}">
+            <input type="text" class="form-control" name="name" value="{{user_detl[0] or ''}}">
         </div>
     </div>
     <div class="row mb-3">
         <label class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">
-            <input type="email" class="form-control" name="email" value="{{user_detl[1]}}">
+            <input type="email" class="form-control" name="email" value="{{user_detl[1] or ''}}">
         </div>
     </div>
     <div class="row mb-3">
         <label class="col-sm-2 col-form-label">D-O-B</label>
         <div class="col-sm-10">
-            <input type="date" class="form-control" name="dob" value="{{user_detl[2]}}">
+            <input type="date" class="form-control" name="dob" value="{{user_detl[2] or ''}}">
         </div>
     </div>
     <div class="row mb-3">
         <label class="col-sm-2 col-form-label">Contact</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="contact" value="{{user_detl[3]}}">
+            <input type="text" class="form-control" name="contact" value="{{user_detl[3] or '' }}">
         </div>
     </div>
 
