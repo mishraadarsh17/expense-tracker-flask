@@ -1,0 +1,94 @@
+{%extends "layout.html"%}
+
+{%block content%}
+
+
+<h1 class="fw-bold ">
+    My Profile
+</h1>
+<hr class="border border-primary border-3 opacity-75">
+<div class="container py-4">
+
+    <div class="row justify-content-center g-4 ">
+
+        <div class="col-lg-5">
+
+            <div class="card shadow-sm h-120">
+
+                <div class="text-center pt-4">
+                    {% if user_detl[4] %}
+                    <img src="{{ url_for('static', filename='upload/' + user_detl[4]) }}" class="card-img-top"
+                        style="height:180px; width:180px; object-fit:contain;border-radius:50%; border:2px solid #dee2e6;" alt="image">
+                        {% else %}
+                        
+                        <img src="{{ url_for('static', filename='images.jpg') }}" class="card-img-top"
+                        style="height:180px; width:180px; object-fit:contain;border-radius:50%; border:2px solid #dee2e6;" alt="default image">
+                        
+                    {% endif %}
+                </div>
+
+                <div class="card-body">
+
+                    <h3 class="fw-bold">
+                        Welcome, {{username[0]}}
+                    </h3>
+
+                    <p class="text-muted">
+                        Manage your expenses and track your spending habits.
+                    </p>
+
+                </div>
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+                        <strong> NAME :</strong> {{user_detl[0] or ""}}
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong> D-O-B :</strong> {{user_detl[2] or ""}}
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Contact :</strong> {{user_detl[3] or ""}}
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>E-mail :</strong> {{user_detl[1] or ""}}
+                    </li>
+                    <li class="list-group-item">
+                        <div class="card-body pb-0">
+                        <h4 class="fw-bold ">
+                            Profile Summary
+                        </h4>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Total Expenses : </strong>{{user_info[0] or ""}}
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Total Entries :</strong> {{user_info[2] or ""}}
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Last Expense Date : </strong>{{user_info[1] or ""}}
+                    </li>
+                    <li class="list-group-item">
+
+
+                        <a href="/edit_profile" class="btn btn-dark w-100 mt-2">
+
+                            Edit Profile
+
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{%endblock%}

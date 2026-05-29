@@ -1,0 +1,229 @@
+{% extends "layout.html"%}
+{% block content%}
+
+<h1 class="fw-bold ">My Dashboard</h1>
+<hr class="border border-primary border-3 opacity-75">
+<div class="container py-4">
+{% if minmax[1] == 0 %}
+<div class="card shadow-sm text-center p-5 mt-4">
+    <div class="card-body">
+
+        <h2 class="fw-bold mb-3">
+            No Expenses Yet
+        </h2>
+
+        <p class="text-muted">
+            Start adding expenses to see analytics and charts.
+        </p>
+
+        <a href="/" class="btn btn-dark mt-2">
+            Add Expense
+        </a>
+
+    </div>
+
+</div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+
+<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+
+    {{message}}
+
+    <button type="button" class="btn-close" data-bs-dismiss="alert">
+    </button>
+
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+{%else%}
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm text-center p-3 h-100">
+
+                <h6 class="text-muted">
+                    Total Expense
+                </h6>
+
+                <h3 class="fw-bold">
+                    ₹ {{minmax[0]}}
+                </h3>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm text-center p-3 h-100">
+
+                <h6 class="text-muted">
+                    Total Entries
+                </h6>
+
+                <h3 class="fw-bold">
+                    {{minmax[1]}}
+                </h3>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm text-center p-3 h-100">
+
+                <h6 class="text-muted">
+                    Max Expense
+                </h6>
+
+                <h3 class="fw-bold">
+                    ₹ {{minmax[2]}}
+                </h3>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-sm text-center p-3 h-100">
+
+                <h6 class="text-muted">
+                    Min Expense
+                </h6>
+
+                <h3 class="fw-bold">
+                    ₹ {{minmax[3]}}
+                </h3>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card shadow-sm   ">
+                <div class="card-body">
+                    <h3 class="fw-bold mb-3">Latest Expenses</h3>
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0">
+                            <tr class="table-dark">
+                                <th>Sr</th>
+                                <th>Title</th>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Created_at</th>
+
+                            </tr>
+                            {%for entries in l_entries %}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{entries[1]}}</td>
+                                <td>{{entries[2]}}rs</td>
+                                <td>{{entries[3]}}</td>
+                                <td>{{entries[5]}}</td>
+
+                            </tr>
+                            {%endfor%}
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mt-4">
+                <div class="card-body">
+                    <h3 class="fw-bold mb-3">Expenses By Category</h3>
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0">
+                            <tr class="table-dark">
+                                <th>Category</th>
+                                <th>Amount</th>
+                            </tr>
+                            {%for category in c_total%}
+                            <tr>
+                                <td>{{category[0]}}</td>
+                                <td>{{category[1]}}</td>
+                            </tr>
+                            {%endfor%}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card shadow-sm ">
+                <div class="card-body">
+                    <h3 class="fw-bold mb-3">Category Distribution</h3>
+                    <div style="height: 200px;">
+                        <canvas id="myChart" height="180"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mt-4">
+                <div class="card-body">
+                    <h3 class="fw-bold mb-3">Monthly Spending Trend</h3>
+                    <div style="height: 200px;">
+                        <canvas id="myChart1" height="180"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+</div>
+
+
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [{% for category in c_total %}"{{category[0]}}",{% endfor %}],
+        datasets: [{
+            label: 'Expenses',
+            data: [{% for category in c_total %}"{{category[1]}}", {% endfor %}],
+        borderWidth: 1
+      }]
+    },
+        options: {
+            responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+  });
+    const ymctx = document.getElementById('myChart1');
+
+    new Chart(ymctx, {
+        type: 'bar',
+        data: {
+            labels: [{% for category in ym_total %}"{{category[0]}}",{% endfor %}],
+        datasets: [{
+            label: 'Expenses',
+            data: [{% for category in ym_total %} {{ category[1]}}, {% endfor %}],
+        borderWidth: 2
+      }]
+    },
+        options: {
+            responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+  });
+</script>
+{%endblock%}
