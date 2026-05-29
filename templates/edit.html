@@ -1,61 +1,69 @@
-
 {%extends "layout.html"%}
 {%block content%}
 
+<h1 class="fw-bold ">Edit Your Expense</h1>
+<hr class="border border-primary border-3 opacity-75">
 <div class="p-4">
-    
-    <h1 class="fw-bold mb-3">Edit Your Expense</h1>
-    
+
     <form method="post">
-        
-        <div class="row g-3">
-            <div class="col-lg-4 col-md-6 col-12">
-                <input type="text" class="form-control" name="title" value="{{expense[1]}}">
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-6">
+
+                <div class="card shadow">
+
+                    <div class="card-header">
+                        <h3>Edit Expense</h3>
+                    </div>
+
+                    <div class="card-body">
+
+                        <form method="POST">
+
+                            <div class="mb-3">
+                                <label>Title</label>
+                                <input type="text" name="title" class="form-control" value="{{ expense[1] }}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Amount</label>
+                                <input type="text" name="amount" class="form-control" value="{{ expense[2] }}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Category</label>
+
+                                <select name="category" class="form-control">
+
+                                    {% for c in categories %}
+                                    <option value="{{ c }}" {% if c==expense[3] %}selected{% endif %}>
+                                        {{ c }}
+                                    </option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+
+                            <button class="btn btn-dark w-100">
+                                Update Expense
+                            </button>
+                            <a href="/" class="btn btn-dark w-100 mt-2">Cancel</a>
+                        </form>
+
+                    </div>
+
+                </div>
+
             </div>
-            <div class="col-lg-4 col-md-6 col-12">
-                <input type="text" name="amount" class="form-control" value="{{expense[2]}}">
-            </div>
-            <div class="col-lg-4 col-md-6 col-12">
-                <select name="category" class="form-select">
-                    <option value="">Select</option>
-                    {%for category in categories%}
-                    <option value="{{category}}" {%if expense[3]==category %} selected {%endif%}>{{category}}</option>
-                    {%endfor%}
-                </select>
-            </div>
-            <div class="col-auto">
-                <input type="submit" class="btn btn-dark px-4"  value="Update">
-            </div>
+
         </div>
-        
+
 
     </form>
 
 </div>
 
-<h2 class="fw-bold mb-3">Your Expenses</h2>
-<div class="table-responsive">
-    <table class="table align-middle">
-        <tr class="table-dark">
-            <th>Sr</th>
-            <th>Title</th>
-            <th>Amount</th>
-            <th>Category</th>
-            <th>Created_at</th>
-            
 
-        </tr>
-       
-        <tr>
-            <td>1</td>
-            <td>{{expense[1]}}</td>
-            <td>{{expense[2]}}rs</td>
-            <td>{{expense[3]}}</td>
-            <td>{{expense[5]}}</td>
-            
-        </tr>
-       
-        
-    </table>
-</div>
- {%endblock%}
+{%endblock%}

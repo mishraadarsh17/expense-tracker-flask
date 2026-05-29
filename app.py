@@ -103,7 +103,7 @@ def edit(id):
                     cursor.execute("UPDATE exprac SET title=?,amount=?,category=?  WHERE id=? AND user_id=?",(title,amount,category,id,user_id))
                     conn.commit()
                     conn.close()
-                    flash("Expese Updated Successfully","succsess" )
+                    flash("Expese Updated Successfully","success" )
                     return redirect("/")
                 else:
                     flash("Invalid Input","danger")
